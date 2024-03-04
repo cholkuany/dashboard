@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+const bcrypt = require('bcrypt');
 
 const FormSchema = z.object({
     id: z.string(),
@@ -35,11 +36,6 @@ const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function createInvoice(prevState: State, formData: FormData) {
-//   const rawFormData = {
-//     customerId: formData.get('customerId'),
-//     amount: formData.get('amount'),
-//     status: formData.get('status'),
-//   };
   const validatedFields = CreateInvoice.safeParse(Object.fromEntries(formData.entries()))
 
   if (!validatedFields.success){
@@ -128,3 +124,23 @@ export async function authenticate(
     throw error;
   }
 }
+
+// export async function signUpUser(  
+//   prevState: string | undefined,
+//   formData: FormData,
+// ) {
+//   const { name, email, password } = Object.fromEntries(formData.entries())
+    
+//   try{
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     await sql`
+//       INSERT INTO users (name, email, password)
+//       VALUES (${name}, ${email}, ${hashedPassword})
+//       `;
+//   }catch(err){
+//     return {
+//       message: 'Database Error: Failed to Sign Up User.',
+//     }
+//   }
+
+// }
