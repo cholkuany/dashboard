@@ -4,7 +4,6 @@ const {
   customers,
   revenue,
   users,
-  comments
 } = require('../app/lib/placeholder-data.js');
 const bcrypt = require('bcrypt');
 
@@ -248,7 +247,7 @@ async function main() {
   await seedInvoices(client);
   await seedRevenue(client);
   await seedComments(client);
-  await seedImages(client)
+  await seedImages(client);
 
   await client.end();
 }
