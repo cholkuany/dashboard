@@ -4,6 +4,7 @@ const {
   customers,
   revenue,
   users,
+  comments
 } = require('../app/lib/placeholder-data.js');
 const bcrypt = require('bcrypt');
 
@@ -160,6 +161,85 @@ async function seedRevenue(client) {
   }
 }
 
+async function seedComments(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // Create the "users" table if it doesn't exist
+    const createComment = await client.sql`
+      CREATE TABLE IF NOT EXISTS comments (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        comment VARCHAR(455) NOT NULL,
+        image_id VARCHAR(250) NOT NULL,
+        owner_id VARCHAR(250) NOT NULL,
+        dislikes INT DEFAULT 0,
+        likes INT DEFAULT 0
+      );
+    `;
+
+    console.log(`Created "comments" table`);
+
+    // Insert data into the "users" table
+    // const insertedComments = await Promise.all(
+    //   comments.map(async (comment) => {
+    //     return client.sql`
+    //     INSERT INTO comments (owner_id, image_id, comment)
+    //     VALUES (${comment.owner}, ${comment.image_id}, ${comment.text})
+    //   `;
+    //   }),
+    // );
+
+    // console.log(`Seeded ${insertedComments.length} users`);
+
+    return {
+      createComment,
+      // users: insertedComments,
+    };
+  } catch (error) {
+    console.error('Error seeding users:', error);
+    throw error;
+  }
+}
+
+async function seedImages(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // Create the "users" table if it doesn't exist
+    const createImages = await client.sql`
+      CREATE TABLE IF NOT EXISTS images (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        cloudinaryID VARCHAR(250) NOT NULL,
+        owner_id VARCHAR(250) NOT NULL,
+        url VARCHAR(250) NOT NULL,
+        dislikes INT DEFAULT 0,
+        likes INT DEFAULT 0,
+        description VARCHAR(255) NULL
+      );
+    `;
+
+    console.log(`Created "images" table`);
+
+    // Insert data into the "users" table
+    // const insertedComments = await Promise.all(
+    //   comments.map(async (comment) => {
+    //     return client.sql`
+    //     INSERT INTO users (owner_initial, comment)
+    //     VALUES (${comment.owner_initial}, ${comment.text})
+    //   `;
+    //   }),
+    // );
+
+    // console.log(`Seeded ${insertedComments.length} users`);
+
+    return {
+      createImages,
+      // users: insertedComments,
+    };
+  } catch (error) {
+    console.error('Error seeding users:', error);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
@@ -167,6 +247,8 @@ async function main() {
   await seedCustomers(client);
   await seedInvoices(client);
   await seedRevenue(client);
+  await seedComments(client);
+  await seedImages(client)
 
   await client.end();
 }

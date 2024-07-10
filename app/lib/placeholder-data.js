@@ -180,9 +180,50 @@ const revenue = [
   { month: 'Dec', revenue: 4800 },
 ];
 
+const comments = [
+  {
+    id: '1',
+    text: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour', 
+    author: 'Peter',
+    image: '/blog-images/christine-roy-ir5MHI6rPg0-unsplash.jpg'
+  },
+  {
+    id: '2',
+    text: 'look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text', 
+    author: 'Garang',
+    image: '/blog-images/4.jpg'
+  },
+  {
+    id: '3',
+    text: 'good work',
+    author: 'Dan',
+    image: '/blog-images/cruise-ship.jpg'
+  }, 
+  {
+    id: '4',
+    text: 'All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet', 
+    author: 'Dave',
+    image: '/blog-images/Cyperus_papyrus-pjt2.jpg'
+  },
+  {
+    id: '5',
+    text: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text", 
+    author: 'John',
+    image: '/blog-images/Cyperus_papyrus-pjt2.jpg'
+  },
+  {
+    id: '6',
+    text: 'Continue the good work', 
+    author: 'Kevin',
+    image: '/blog-images/hiddenlake@2x.jpg'
+  },
+
+]
+
 module.exports = {
   users,
   customers,
   invoices,
   revenue,
+  comments,
 };
